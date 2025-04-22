@@ -1,0 +1,25 @@
+# Node modules & build artifacts
+node_modules/
+dist/
+build/
+.vite/
+
+# Vite environment files
+.env.local
+.env.*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Tailwind/PostCSS configs (if you ever generate backups)
+postcss.config.cjs
+
+# OS & editor files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+
