@@ -37,3 +37,6 @@ def get_meals_by_ingredient(db: Session, ingredient_name: str):
         .join(models.Meal.ingredients) \
         .filter(models.Ingredient.name == ingredient_name) \
         .all()
+
+def get_ingredients(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.Ingredient).offset(skip).limit(limit).all()

@@ -17,9 +17,11 @@ class MealBase(BaseModel):
 
 class MealCreate(MealBase):
     ingredient_ids: List[int] = []
+    instructions: Optional[str] = None
 
 class MealRead(MealBase):
     id: int
     ingredients: List[IngredientRead]
+    instructions: Optional[str]
     class Config:
         orm_mode = True
