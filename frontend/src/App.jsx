@@ -4,6 +4,8 @@ import { fetchMeals, createMeal, fetchIngredients } from './api';
 export default function App() {
     const [meals, setMeals] = useState([]);
     const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
+    const [calories, setCalories] = useState('');
     const [instructions, setInstructions] = useState('');
     const [ingredients, setIngredients] = useState([]);
     const [selectedIds, setSelectedIds] = useState([]);
@@ -16,14 +18,19 @@ export default function App() {
     const handleAdd = async () => {
         const payload = {
             name,
-            description: '',
-            calories: null,
+            description,
+            calories: Number(calories),
             instructions,
             ingredient_ids: selectedIds
         };
+
         const newMeal = await createMeal(payload);
         setMeals(m => [...m, newMeal.data]);
+
+        // Reset form fields
         setName('');
+        setDescription('');
+        setCalories('');
         setInstructions('');
         setSelectedIds([]);
     };
@@ -41,7 +48,9 @@ export default function App() {
                 {meals.map(m => (
                     <li key={m.id}>
                         <strong>{m.name}</strong>
+                        <p><em>{m.description}</em></p>
                         <p>{m.instructions}</p>
+                        <p>Calories: {m.calories}</p>
                         <p>
                             Ingredients: {m.ingredients.map(i => i.name).join(', ')}
                         </p>
@@ -50,10 +59,26 @@ export default function App() {
             </ul>
 
             <h2>Add a Meal</h2>
+
             <input
                 value={name}
                 onChange={e => setName(e.target.value)}
                 placeholder="Meal name"
+            />
+            <br/>
+
+            <input
+                value={description}
+                onChange={e => setDescription(e.target.value)}
+                placeholder="Meal description"
+            />
+            <br/>
+
+            <input
+                type="number"
+                value={calories}
+                onChange={e => setCalories(e.target.value)}
+                placeholder="Calories"
             />
             <br/>
 
@@ -84,3 +109,4 @@ export default function App() {
         </div>
     );
 }
+

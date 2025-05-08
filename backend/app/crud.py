@@ -17,7 +17,7 @@ def create_meal(db: Session, meal_in: schemas.MealCreate):
     db.refresh(db_meal)
     return db_meal
 
-def update_meal(db: Session, meal_id: int, meal_in: schemas.MealCreate):
+def update_meal(db: Session, meal_id: int, meal_in: schemas.MealUpdate):
     db_meal = db.query(models.Meal).get(meal_id)
     if not db_meal:
         return None
@@ -38,5 +38,11 @@ def get_meals_by_ingredient(db: Session, ingredient_name: str):
         .filter(models.Ingredient.name == ingredient_name) \
         .all()
 
+def get_meal(db: Session, meal_id: int):
+    return db.query(models.Meal).filter(models.Meal.id == meal_id).first()
+
 def get_ingredients(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Ingredient).offset(skip).limit(limit).all()
+
+def get_meals(db: Session, skip: int = 0, limit: int = 10):
+    return db.query(models.Meal).offset(skip).limit(limit).all()
