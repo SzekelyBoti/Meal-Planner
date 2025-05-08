@@ -1,3 +1,11 @@
 ﻿import axios from 'axios';
-export const fetchMeals = () => axios.get('/api/meals');
-export const createMeal = (meal) => axios.post('/api/meals', meal);
+
+const api = axios.create({
+    baseURL: '/api', // or 'http://localhost:8000/api' if not proxying
+    withCredentials: true,
+});
+
+export const fetchMeals = () => api.get('/meals');
+export const createMeal = (meal) => api.post('/meals', meal);
+
+export const fetchIngredients = () => api.get('/ingredients');
